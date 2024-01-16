@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "preserveConstEnums": true,
+        "target": "ES6",
+        "module": "ES2022",
+        "moduleResolution": "Bundler",
+        "noEmit": true,
+        "allowSyntheticDefaultImports": true,
+        "alwaysStrict": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "jsx": "react",
+        "lib": ["DOM", "ES2021.String", "ES6"]
+    },
+    "include": ["src"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+}
