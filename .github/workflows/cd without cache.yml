@@ -1,4 +1,4 @@
-name: on Pull Request
+name: on Pull Request without cache
 run-name: ${{ github.actor }} on Pull Request
 on: 
   pull_request: 
@@ -28,20 +28,7 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
-#Todo: когда добавим тесты. кешировать на их этапе
-      - name: installing node
-        uses: actions/setup-node@v4
-        with: 
-          node-version: 'latest'
-      - name: cache deps
-        uses: actions/cache@v4
-        id: cache-modules
-        with:
-          path: ~/.npm
-          key: node_modules-${{ hashFiles('**/package-lock.json')}}
-      - if: ${{ steps.cache-modules.outputs.cache-hit != 'true' }}
-        name: install dependencies
-        continue-on-error: true
+      - name: install dependencies
         run: npm ci
       - name: lint app
         run: npm run lint
@@ -52,19 +39,7 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
-      - name: installing node
-        uses: actions/setup-node@v4
-        with: 
-          node-version: 'latest'
-      - name: cache deps
-        uses: actions/cache@v4
-        id: cache-modules
-        with:
-          path: ~/.npm
-          key: node_modules-${{ hashFiles('**/package-lock.json')}}
-      - if: ${{ steps.cache-modules.outputs.cache-hit != 'true' }}
-        name: install dependencies
-        continue-on-error: true
+      - name: install dependencies
         run: npm ci
       - name: code formatting
         run: npm run prettier
