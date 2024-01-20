@@ -1,0 +1,39 @@
+name: on Pull Request
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: 
+  pull_request: 
+    types:
+      - opened
+    branches:
+        - 'main'
+  workflow_dispatch:
+jobs:
+  # tests:
+  #   runs-on: ubuntu-latest
+  #     steps:
+  #     - name: get repository code
+  #       uses: actions/checkout@v4
+  #     - name: install dependencies
+  #       run: npm ci
+  #     - name: test app
+  #       run: npm run test
+  eslint:
+    runs-on: ubuntu-latest
+    # needs: tests
+    steps:
+      - name: get repository code
+        uses: actions/checkout@v4
+      - name: install dependencies
+        run: npm ci
+      - name: lint app
+        run: npm run lint
+  prettier:
+    runs-on: ubuntu-latest
+    # needs: tests
+    steps:
+      - name: get repository code
+        uses: actions/checkout@v4
+      - name: install dependencies
+        run: npm ci
+      - name: code formatting
+        run: npm run prettier
