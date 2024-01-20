@@ -4,7 +4,7 @@ on:
   pull_request: 
     types:
       - opened
-    branche:
+    branches:
       - 'main'
   workflow_dispatch:
 jobs:
@@ -36,7 +36,6 @@ jobs:
           key: node_modules-${{ hashFiles('**/package-lock.json')}}
       - name: install dependencies
         run: npm ci
-
       - name: lint app
         run: npm run lint
   prettier:
