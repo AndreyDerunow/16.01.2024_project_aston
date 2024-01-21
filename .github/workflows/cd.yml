@@ -1,11 +1,11 @@
 name: on Pull Request
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: ${{ github.actor }} on Pull Request
 on: 
   pull_request: 
     types:
       - opened
     branches:
-        - 'main'
+      - 'main'
   workflow_dispatch:
 jobs:
   # tests:
@@ -13,6 +13,11 @@ jobs:
   #     steps:
   #     - name: get repository code
   #       uses: actions/checkout@v4
+  #     - name: Cache deps
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.npm
+  #         key: node_modules-${{ hashFiles('**/package-lock.json')}}
   #     - name: install dependencies
   #       run: npm ci
   #     - name: test app
@@ -23,6 +28,12 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
+#Todo: когда добавим тесты. кешировать на их этапе
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: node_modules-${{ hashFiles('**/package-lock.json')}}
       - name: install dependencies
         run: npm ci
       - name: lint app
@@ -30,9 +41,15 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     # needs: tests
+    needs: eslint
     steps:
       - name: get repository code
         uses: actions/checkout@v4
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: node_modules-${{ hashFiles('**/package-lock.json')}}
       - name: install dependencies
         run: npm ci
       - name: code formatting
