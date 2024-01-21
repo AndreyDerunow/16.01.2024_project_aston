@@ -8,6 +8,8 @@ if (root === null) {
     throw new Error('Root container missing in index.html');
 }
 
+console.log(import.meta.env.VITE_APP_TITLE);
+
 ReactDOM.createRoot(root).render(
     <React.StrictMode>
         <App />

@@ -13,7 +13,7 @@ jobs:
   #     steps:
   #     - name: get repository code
   #       uses: actions/checkout@v4
-  #     - name: Cache deps
+  #     - name: cache deps
   #       uses: actions/cache@v4
   #       with:
   #         path: ~/.npm
@@ -29,7 +29,7 @@ jobs:
       - name: get repository code
         uses: actions/checkout@v4
 #Todo: когда добавим тесты. кешировать на их этапе
-      - name: Cache deps
+      - name: cache deps
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
-      - name: Cache deps
+      - name: cache deps
         uses: actions/cache@v4
         with:
           path: ~/.npm
