@@ -4,7 +4,7 @@
     "semi": true,
     "jsxSingleQuote": true,
     "bracketSpacing": true,
-    "trailingComma": "all",
+    "trailingComma": "none",
     "tabWidth": 4,
     "arrowParens": "avoid",
     "endOfLine": "lf"

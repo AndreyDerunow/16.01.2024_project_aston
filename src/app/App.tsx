@@ -1,21 +1,18 @@
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallBack } from '../pages/Error/ErrorFallback';
 import React from 'react';
+import { router } from './router/router';
+import { RouterProvider } from 'react-router-dom';
+
 import './App.css';
 
-// const Button  = ({text,img,className,cb}) => {
-//     return ( <button className={className} onClick={cb}>
-//         {img && <img src={img}/>}
-//         {text}
-//     </button> );
-// }
-
-// const input = ({type,label,className,onChange,value})=>{
-//     return <>
-
-//     </>
-// }
-
-function App() {
-    return <div>добрый день!</div>;
-}
-// export Button;
-export default App;
+export const App = () => {
+    return (
+        <ErrorBoundary
+            FallbackComponent={ErrorFallBack}
+            onReset={() => router.navigate('/')}
+        >
+            <RouterProvider router={router} />
+        </ErrorBoundary>
+    );
+};

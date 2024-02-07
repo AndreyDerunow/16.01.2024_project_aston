@@ -4,11 +4,10 @@ on:
   pull_request: 
     types:
       - opened
-    branches:
-      - 'main'
+    branches: [ "main","develope" ]
   workflow_dispatch:
 jobs:
-  # tests:
+  # tests: //Оставил целенаправленно для для добавления тестов в будущем
   #   runs-on: ubuntu-latest
   #     steps:
   #     - name: get repository code
@@ -28,13 +27,20 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
-#Todo: когда добавим тесты. кешировать на их этапе
+  #Todo: когда добавим тесты. кешировать на их этапе
+      - name: installing node
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 'latest'
       - name: cache deps
         uses: actions/cache@v4
+        id: cache-modules
         with:
           path: ~/.npm
           key: node_modules-${{ hashFiles('**/package-lock.json')}}
-      - name: install dependencies
+      - if: ${{ steps.cache-modules.outputs.cache-hit != 'true' }}
+        name: install dependencies
+        continue-on-error: true
         run: npm ci
       - name: lint app
         run: npm run lint
@@ -45,12 +51,19 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
+      - name: installing node
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 'latest'
       - name: cache deps
         uses: actions/cache@v4
+        id: cache-modules
         with:
           path: ~/.npm
           key: node_modules-${{ hashFiles('**/package-lock.json')}}
-      - name: install dependencies
+      - if: ${{ steps.cache-modules.outputs.cache-hit != 'true' }}
+        name: install dependencies
+        continue-on-error: true
         run: npm ci
       - name: code formatting
         run: npm run prettier
