@@ -1,7 +1,6 @@
 import { type FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { type NavigateFunction } from 'react-router';
 import { type QueryAnswer } from '../../entities/Joke/types/jokes';
-
 import { type Result } from '../../entities/Joke/types/jokes';
 import { type SerializedError } from '@reduxjs/toolkit';
 

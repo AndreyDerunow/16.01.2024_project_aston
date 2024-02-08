@@ -1,9 +1,8 @@
 import { AUTH_ERROR } from '../../shared/constants/constants';
 import classNames from 'classnames';
-import { Loader } from '../../shared/ui/loader';
-
+import { isResult } from '../../entities/Joke/types/typeguards/jokes';
+import { Loader } from '../../shared/components/loader/loader';
 import { PartialDataJokeCard } from '../../features/jokeCard/partialDataJokeCard';
-import { type Result } from '../../entities/Joke/types/jokes';
 import { updateFavorite } from '../../entities/User/utils/updateFavorite';
 import { useNavigate } from 'react-router';
 import { userAPI } from '../../entities/User/api/userApi';
@@ -48,8 +47,8 @@ export const FavoritesList = () => {
     if (favorites && favorites.length > 0) {
         return (
             <div className={containerClasses}>
-                {favorites.map((el: Result) => {
-                    if (curUserData && curUserData.favorites) {
+                {favorites.map(el => {
+                    if (curUserData && curUserData.favorites && isResult(el)) {
                         const isFavorite = curUserData.favorites.includes(
                             el.id
                         );

@@ -1,6 +1,6 @@
-import Button from '../../shared/ui/button';
-import { Loader } from '../../shared/ui/loader';
-import { NavLi } from '../../shared/ui/navLi';
+import { Button } from '../../shared/components/button/button';
+import { Loader } from '../../shared/components/loader/loader';
+import { NavLi } from '../../shared/components/navLi';
 import React from 'react';
 import { userAPI } from '../../entities/User/api/userApi';
 import { useTheme } from '../../shared/hooks/useTheme';

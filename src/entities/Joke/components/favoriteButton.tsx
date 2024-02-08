@@ -1,4 +1,4 @@
-import Button from '../../../shared/ui/button';
+import { Button } from '../../../shared/components/button/button';
 import { getFavoriteBtnClasses } from '../../../shared/utils/getFavoriteBtnClasses';
 import React, { type MouseEvent } from 'react';
 
@@ -13,7 +13,7 @@ export const FavoriteButton = ({
 }) => {
     return (
         <Button
-            title='add to favorite'
+            title={isFavorite ? 'remove from favorites' : 'add to favorite'}
             text='favorite!'
             classes={getFavoriteBtnClasses(isFavorite)}
             id={id}

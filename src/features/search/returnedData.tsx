@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import React from 'react';
 import { type Result } from '../../entities/Joke/types/jokes';
 import { type ReturnedDataProps } from '../../shared/types/ui';
