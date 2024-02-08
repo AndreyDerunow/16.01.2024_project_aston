@@ -1,9 +1,9 @@
 import { authAPI } from '../../entities/auth/api/services/authApi';
-import Button from '../../shared/ui/button';
+import { Button } from '../../shared/components/button/button';
 import { Link } from 'react-router-dom';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import { localStorageAPI } from '../../shared/api/store/services/localStorageApi';
-import { TextInput } from '../../shared/ui/textInput';
+import { TextInput } from '../../shared/components/textInput';
 import { useNavigateAfterAuth } from '../../entities/auth/hooks/useNavigateAfterAuth';
 import { useValidate } from '../../entities/auth/hooks/useValidate';
 import { type Errors, type LoginData } from '../../entities/auth/types/auth';

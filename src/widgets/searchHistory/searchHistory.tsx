@@ -1,8 +1,8 @@
 import { AUTH_ERROR } from '../../shared/constants/constants';
-import Button from '../../shared/ui/button';
+import { Button } from '../../shared/components/button/button';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import { updateSearchHistory } from '../../entities/User/utils/updateSearchHistory';
 import { useNavigate } from 'react-router';
 import { userAPI } from '../../entities/User/api/userApi';

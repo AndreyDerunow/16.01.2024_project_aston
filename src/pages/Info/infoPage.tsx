@@ -1,6 +1,6 @@
 import { AUTH_ERROR } from '../../shared/constants/constants';
 import classNames from 'classnames';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import React from 'react';
 import { userAPI } from '../../entities/User/api/userApi';
 import { useTheme } from '../../shared/hooks/useTheme';

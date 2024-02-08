@@ -1,13 +1,13 @@
-import Button from '../../../shared/ui/button';
+import { Button } from '../../../shared/components/button/button';
 import { logOut } from '../../../entities/auth/api/services/authApi';
 import React from 'react';
 import { userAPI } from '../../../entities/User/api/userApi';
 
 export const LogOut = () => {
-    const [getCurrentUser] = userAPI.useLazyGetCurrentUserQuery();
+    const [resetUser] = userAPI.useLazyGetCurrentUserQuery();
     const handlelogOut = () => {
         logOut();
-        getCurrentUser();
+        resetUser();
     };
     return (
         <Button

@@ -1,4 +1,4 @@
-import Button from '../../shared/ui/button';
+import { Button } from '../../shared/components/button/button';
 import React from 'react';
 
 export const SearchButton = ({

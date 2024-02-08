@@ -1,4 +1,4 @@
-import { TextInput } from '../../shared/ui/textInput';
+import { TextInput } from '../../shared/components/textInput';
 import { useLocation } from 'react-router';
 import React, { type ChangeEvent, type RefObject, useEffect } from 'react';
 

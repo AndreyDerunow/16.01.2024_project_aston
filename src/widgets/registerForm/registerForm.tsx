@@ -1,13 +1,13 @@
-import { AddFileInput } from '../../shared/ui/addFileInput';
+import { AddFileInput } from '../../shared/components/addFileInput';
 import { authAPI } from '../../entities/auth/api/services/authApi';
-import Button from '../../shared/ui/button';
+import { Button } from '../../shared/components/button/button';
 import { isTargetImgData } from '../../shared/types/typeguards/imgData';
 import { Link } from 'react-router-dom';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import { onRegisterSuccess } from '../../entities/auth/utils/onAuthSuccess';
-import { RadioInput } from '../../shared/ui/RadioInput';
+import { RadioInput } from '../../shared/components/RadioInput';
 import { type TargetImgData } from '../../shared/types/ui';
-import { TextInput } from '../../shared/ui/textInput';
+import { TextInput } from '../../shared/components/textInput';
 import { useNavigateAfterAuth } from '../../entities/auth/hooks/useNavigateAfterAuth';
 import { userAPI } from '../../entities/User/api/userApi';
 import { useValidate } from '../../entities/auth/hooks/useValidate';

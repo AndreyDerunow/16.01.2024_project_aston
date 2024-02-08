@@ -1,4 +1,4 @@
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import PropTypes from 'prop-types';
 import { userAPI } from '../../entities/User/api/userApi';
 import { Navigate, useLocation } from 'react-router';

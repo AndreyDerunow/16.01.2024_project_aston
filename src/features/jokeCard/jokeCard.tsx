@@ -1,6 +1,6 @@
 import { FavoriteButton } from '../../entities/Joke/components/favoriteButton';
 
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import React from 'react';
 import { updateFavorite } from '../../entities/User/utils/updateFavorite';
 import { userAPI } from '../../entities/User/api/userApi';

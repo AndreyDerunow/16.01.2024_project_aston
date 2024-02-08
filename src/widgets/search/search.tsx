@@ -1,6 +1,6 @@
 import { debounce } from '../../shared/utils/debounce';
 import { jokesAPI } from '../../entities/Joke/api/services/jokesApi';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import { ReturnedData } from '../../features/search/returnedData';
 import { SearchButton } from '../../features/search/searchButton';
 import { SearchInput } from '../../features/search/searchInput';

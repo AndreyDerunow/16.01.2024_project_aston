@@ -4,14 +4,27 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getJokeById } from '../services/jokesApi';
 import { type RootState } from '../../../../app/store';
 
+const initialState: {
+    isLoading: boolean,
+    error: unknown,
+    data: Record<string, unknown>[]
+} = {
+    isLoading: false,
+    error: [],
+    data: []
+};
+
 const findJokesByIdSlice = createSlice({
     name: 'findJokesById',
-    initialState: { isLoading: false, error: [], data: [] },
+    initialState: initialState,
     reducers: {
         JokesByIdRequested: state => {
             state.isLoading = true;
         },
-        JokesByIdRecieved: (state, action) => {
+        JokesByIdRecieved: (
+            state,
+            action: { payload: Record<string, unknown>[], type: string }
+        ) => {
             state.data = action.payload;
             state.isLoading = false;
         },

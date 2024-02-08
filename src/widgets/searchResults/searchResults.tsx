@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { jokesAPI } from '../../entities/Joke/api/services/jokesApi';
-import { Loader } from '../../shared/ui/loader';
+import { Loader } from '../../shared/components/loader/loader';
 import { PartialDataJokeCard } from '../../features/jokeCard/partialDataJokeCard';
 
 import React from 'react';
