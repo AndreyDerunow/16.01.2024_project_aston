@@ -4,11 +4,10 @@ on:
   pull_request: 
     types:
       - opened
-    branches:
-      - 'main'
+    branches: [ "main","develope" ]
   workflow_dispatch:
 jobs:
-  # tests:
+  # tests: //Оставил целенаправленно для для добавления тестов в будущем
   #   runs-on: ubuntu-latest
   #     steps:
   #     - name: get repository code
@@ -28,7 +27,7 @@ jobs:
     steps:
       - name: get repository code
         uses: actions/checkout@v4
-#Todo: когда добавим тесты. кешировать на их этапе
+  #Todo: когда добавим тесты. кешировать на их этапе
       - name: installing node
         uses: actions/setup-node@v4
         with: 

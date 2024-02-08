@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "strictFunctionTypes": true,
-        "noImplicitAny":true,
+        "noImplicitAny": true,
         "allowImportingTsExtensions": true,
         "preserveConstEnums": true,
         "target": "ES6",

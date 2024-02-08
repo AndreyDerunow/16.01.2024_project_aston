@@ -38,7 +38,7 @@ module.exports = {
         'sort-imports': [
             'error',
             {
-                ignoreCase: false,
+                ignoreCase: true,
                 ignoreDeclarationSort: false,
                 ignoreMemberSort: false,
                 memberSyntaxSortOrder: ['single', 'multiple', 'all', 'none'],
