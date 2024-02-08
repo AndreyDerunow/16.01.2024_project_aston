@@ -1,7 +1,7 @@
 import { Button } from '../../shared/components/button/button';
-import React from 'react';
+import React, { memo } from 'react';
 
-export const SearchButton = ({
+const UmemoizedSearchButton = ({
     goToSearchResultsPage,
     query
 }: {
@@ -19,3 +19,5 @@ export const SearchButton = ({
         />
     );
 };
+
+export const SearchButton = memo(UmemoizedSearchButton);

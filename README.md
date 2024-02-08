@@ -2,13 +2,14 @@
 
 Приложение для поиска шуток о Чаке Норрисе :)
 
-**Использованное API**: в приложении используется [ChuckNorrisApi](https://api.chucknorris.io/).
+**Использованное API**: [ChuckNorrisApi](https://api.chucknorris.io/).
+
+**Посмотреть проект**: [https://andreyderunow.github.io/16.01.2024_project_aston/](https://andreyderunow.github.io/16.01.2024_project_aston/).
 
 ## Для запуска приложения локально нужно сделать следующее:
 
 - Спулить из главной ветки актуальную версию проекта
 - Добавить в корень .env файл
-- Получить необходимые ключи и записать их в файл .env
 - Ввести необходимые комманды в консоль
 
 ```javascript
@@ -20,7 +21,7 @@ npm run dev
 
 > - **Регистрация и авторизация:** пользователи могут создать учетную запись и авторизоваться в приложении.
 > - **Поиск шуток:** приложение предоставляет возможность поиска шуток по слову/части слова.
-> - **Избранные персонажи:** пользователи могут добавлять шутки в избранное, чтобы собрать свою коллекцию.
+> - **Избранные шутки:** пользователи могут добавлять шутки в избранное, чтобы собрать свою коллекцию.
 > - **История поиска:** приложение сохраняет историю поиска.
 
 ## Реализованные требования:
@@ -65,7 +66,7 @@ npm run dev
       утилита [debounce](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/shared/utils/debounce.ts) использована в компоненте [Search](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/widgets/search/search.tsx).
 
 - [x] Есть применение lazy + Suspense:
-      [LazyComponents](добавить),
+      [LazyComponents]([добавить](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/pages/LazyPagex.ts)).
 
 **Redux**
 
@@ -87,15 +88,16 @@ npm run dev
 ### **2 уровень (необязательный)**
 
 - [x] Использование **TypeScript**
-- [] Подключен **storybook** и созданы два, три сториса ~~с knobs~~, которые показывают разные состояния компонента |
-     в планах
+- [x] Подключен **storybook** и созданы два, три сториса ~~с knobs~~, которые показывают разные состояния компонента |
+     [Button](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/shared/components/button/button.stories.tsx),
+     [Loader](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/shared/components/loader/loader.stories.tsx).
 
 - [x] Использование Firebase для учетных записей:
       [userApi](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/entities/User/api/userApi.ts), для обращение к базе данных юзера и картинкам профилей юзера используется Realtime database и Storage.
 
 - [ ] ~~**Низная связанность клиентского кода**, использующего апи кода, работающего с внешним стором~~
 
-- [x] Настроен CI: [cd.yml](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/.github/workflows/cd.yml)
+- [x] Настроен CI-CD: [ci-cd.yml](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/.github/workflows/ci-cd.yml)
 
 - [ ] ~~Реализована **виртуализация списков**~~
 
@@ -105,11 +107,12 @@ npm run dev
 
 - [ ] ~~Feature Flags. Реализовать фичу “Поделиться в телеграм”, закрытую под фича флагом.~~
 
-- [x] Добавить **тесты** через jest, react-testing-library или Playwright |
-      в пласнах
+- [ ] ~~Добавить **тесты** через jest, react-testing-library или Playwright~~
+      в планах
 
-- [ ] ~~Связь UI и бизнес-логики построена не через команды, а через **события**~~
-
+- [x] Связь UI и бизнес-логики построена не через команды, а через **события**
+     [onResetUser](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/features/auth/components/logOut.tsx),
+     [onUpdateUser](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/widgets/favoritesList/favoritesList.tsx).     
 - [ ] ~~**Project Console API**~~
 
 ## **Дополнительно**

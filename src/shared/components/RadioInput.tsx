@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { type RadioInputProps } from '../types/ui';
 
-import React from 'react';
+import React, { memo } from 'react';
 
-export const RadioInput = ({
+const UnmemoizedRadioInput = ({
     label,
     options,
     onChange,
@@ -46,3 +46,4 @@ export const RadioInput = ({
         </div>
     );
 };
+export const RadioInput = memo(UnmemoizedRadioInput);

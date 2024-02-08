@@ -1,19 +1,20 @@
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import { Loader } from '../../shared/components/loader/loader';
-import React from 'react';
 import { type Result } from '../../entities/Joke/types/jokes';
 import { type ReturnedDataProps } from '../../shared/types/ui';
 import { UNEXPECTED_ERROR } from '../../shared/constants/constants';
 import { useTheme } from '../../shared/hooks/useTheme';
+import { Link, useLocation } from 'react-router-dom';
+import React, { memo } from 'react';
 
-export const ReturnedData = ({
+const UnmemoizedReturnedData = ({
     query,
     error,
     data,
     isLoading
 }: ReturnedDataProps) => {
     const { theme } = useTheme();
+    const { state } = useLocation();
     const dataClasses = classNames({
         'bg-gray-50 text-black': theme === 'dark',
         'bg-black text-gray-50': theme === 'light',
@@ -38,6 +39,7 @@ export const ReturnedData = ({
                         key={el.id}
                         to={`/joke/${el.id}`}
                         state={{
+                            ...state,
                             id: el.id,
                             value: el.value,
                             url: el.url
@@ -50,3 +52,5 @@ export const ReturnedData = ({
         );
     }
 };
+
+export const ReturnedData = memo(UnmemoizedReturnedData);

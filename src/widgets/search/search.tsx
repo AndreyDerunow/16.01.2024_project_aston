@@ -1,37 +1,43 @@
 import { debounce } from '../../shared/utils/debounce';
 import { jokesAPI } from '../../entities/Joke/api/services/jokesApi';
 import { Loader } from '../../shared/components/loader/loader';
+import { onChangeSearchHistory } from '../../entities/User/utils/onChangeSearchHistory';
 import { ReturnedData } from '../../features/search/returnedData';
 import { SearchButton } from '../../features/search/searchButton';
 import { SearchInput } from '../../features/search/searchInput';
-import { updateSearchHistory } from '../../entities/User/utils/updateSearchHistory';
 import { useNavigate } from 'react-router';
 import { userAPI } from '../../entities/User/api/userApi';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 export const Search = () => {
     const [query, setQuery] = useState<string>('');
-    const [findJokes, { data, isLoading, error }] =
+    const [onSearchQuery, { data, isLoading, error }] =
         jokesAPI.useLazyFindJokeQuery();
     const { data: curUserData, isLoading: isCurUserLoading } =
         userAPI.useGetCurrentUserQuery();
-    const [updateUser] = userAPI.useUpdateUserMutation();
+    const [onUpdateUser] = userAPI.useUpdateUserMutation();
     const searchResultsRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
     useEffect(() => {
         if (query.length > 2) {
-            debounce(query, e => findJokes(e));
+            debounce(query, e => onSearchQuery(e));
         }
-    }, [query, findJokes]);
+    }, [query, onSearchQuery]);
     useEffect(() => {
         document.addEventListener('keydown', handleSearchByEnter);
         return () => removeEventListener('keydown', handleSearchByEnter);
     });
     const goToSearchResultsPage = useCallback((): void => {
-        updateSearchHistory(query, updateUser, curUserData, navigate, false);
+        onChangeSearchHistory(
+            query,
+            onUpdateUser,
+            curUserData,
+            navigate,
+            false
+        );
         navigate('searchResults', { state: { query } });
-    }, [query, curUserData, updateUser, navigate]);
+    }, [query, curUserData, onUpdateUser, navigate]);
 
     const handleSearchByEnter = useCallback(
         (e: KeyboardEvent): void => {

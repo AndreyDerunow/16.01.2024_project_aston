@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { type InputProps } from '../types/ui';
-import React from 'react';
 import { useTheme } from '../hooks/useTheme';
+import React, { memo } from 'react';
 
-export const TextInput = ({
+const UnmemoizedTextInput = ({
     placeholder,
     name,
     label,
@@ -44,3 +44,5 @@ export const TextInput = ({
         </div>
     );
 };
+
+export const TextInput = memo(UnmemoizedTextInput);

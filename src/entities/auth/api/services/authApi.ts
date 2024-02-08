@@ -1,5 +1,5 @@
 import { BASE_AUTH_FIREBASE_URL } from '../../../../shared/constants/constants';
-import { localStorageAPI } from '../../../../shared/api/store/services/localStorageApi';
+import { removeAuthData } from '../../../../shared/api/store/services/localStorageApi';
 import { router } from '../../../../app/router/router';
 
 import {
@@ -39,6 +39,6 @@ export const authAPI = createApi({
     })
 });
 export const logOut = () => {
-    localStorageAPI.removeAuthData();
+    removeAuthData();
     router.navigate('/');
 };

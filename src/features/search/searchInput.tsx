@@ -1,8 +1,17 @@
 import { TextInput } from '../../shared/components/textInput';
 import { useLocation } from 'react-router';
-import React, { type ChangeEvent, type RefObject, useEffect } from 'react';
+import {
+    getLocalQuery,
+    setLocalQuery
+} from '../../shared/api/store/services/localStorageApi';
+import React, {
+    type ChangeEvent,
+    memo,
+    type RefObject,
+    useEffect
+} from 'react';
 
-export const SearchInput = ({
+export const UnmemoizedSearchInput = ({
     setQuery,
     searchInputRef,
     query,
@@ -13,15 +22,17 @@ export const SearchInput = ({
     searchInputRef: RefObject<HTMLInputElement>,
     searchResultsRef: RefObject<HTMLDivElement>
 }) => {
-    const { state } = useLocation();
+    const location = useLocation();
+    const { state } = location;
+    const searchQuery = state?.query || getLocalQuery();
     useEffect(() => {
-        if (state?.query) {
-            setQuery(() => state.query);
+        if (searchQuery) {
+            setQuery(() => searchQuery);
         }
-    }, [state?.query]);
-
+    }, [searchQuery, setQuery]);
     const handleChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
         setQuery(() => target.value);
+        setLocalQuery(target.value);
     };
     return (
         <TextInput
@@ -36,7 +47,11 @@ export const SearchInput = ({
             }}
             onBlur={() => {
                 setTimeout(() => {
-                    searchResultsRef?.current?.classList.toggle('hidden');
+                    if (
+                        !searchResultsRef?.current?.classList.contains('hidden')
+                    ) {
+                        searchResultsRef?.current?.classList.toggle('hidden');
+                    }
                 }, 300);
             }}
             label=''
@@ -44,3 +59,5 @@ export const SearchInput = ({
         />
     );
 };
+
+export const SearchInput = memo(UnmemoizedSearchInput);

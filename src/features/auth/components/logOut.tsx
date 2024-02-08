@@ -4,10 +4,10 @@ import React from 'react';
 import { userAPI } from '../../../entities/User/api/userApi';
 
 export const LogOut = () => {
-    const [resetUser] = userAPI.useLazyGetCurrentUserQuery();
+    const [onResetUser] = userAPI.useLazyGetCurrentUserQuery();
     const handlelogOut = () => {
         logOut();
-        resetUser();
+        onResetUser();
     };
     return (
         <Button

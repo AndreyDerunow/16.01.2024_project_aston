@@ -1,26 +1,30 @@
 import { type AuthResponse } from '../../entities/auth/types/auth';
-import { localStorageAPI } from '../api/store/services/localStorageApi';
 import {
     AUTH_ERROR,
     BASE_REFRESH_AUTH_FIREBASE_TOKEN
 } from '../constants/constants';
-
 import {
     EXPIRES_KEY,
     REFRESH_KEY,
     TOKEN_KEY,
     USERID_KEY
 } from './../constants/constants';
+import {
+    getAccessToken,
+    getRefreshToken,
+    getTokenExpiresDate,
+    setTokens
+} from '../api/store/services/localStorageApi';
 
 export const getActualAccessToken = async (): Promise<string> => {
-    const expiresIn = localStorageAPI.getTokenExpiresDate();
-    let token = localStorageAPI.getAccessToken();
+    const expiresIn = getTokenExpiresDate();
+    let token = getAccessToken();
     if (!expiresIn || !token) {
         return AUTH_ERROR;
     }
 
     if (+expiresIn < Date.now()) {
-        const refreshToken = localStorageAPI.getRefreshToken();
+        const refreshToken = getRefreshToken();
         if (!refreshToken) {
             return AUTH_ERROR;
         }
@@ -51,11 +55,11 @@ export const getActualAccessToken = async (): Promise<string> => {
                 [USERID_KEY]: user_id
             }
         };
-        localStorageAPI.setTokens(tokens as AuthResponse);
+        setTokens(tokens as AuthResponse);
     } else {
         return token;
     }
-    token = localStorageAPI.getAccessToken();
+    token = getAccessToken();
     if (!token) {
         return AUTH_ERROR;
     }

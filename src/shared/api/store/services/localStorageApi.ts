@@ -35,7 +35,19 @@ export const getRefreshToken = () => {
 export const getTokenExpiresDate = () => {
     return localStorage.getItem(EXPIRES_KEY);
 };
-
+export const setLocalQuery = (query: string) => {
+    localStorage.setItem('query', query);
+    localStorage.setItem('queryExpires', Date.now() + 600 + '');
+};
+export const getLocalQuery = () => {
+    const queryExpires = localStorage.getItem('queryExpires');
+    if (queryExpires && +queryExpires > Date.now()) {
+        return localStorage.getItem('query');
+    } else {
+        localStorage.removeItem('query');
+        return null;
+    }
+};
 export const removeAuthData = () => {
     localStorage.removeItem(USERID_KEY);
     localStorage.removeItem(TOKEN_KEY);

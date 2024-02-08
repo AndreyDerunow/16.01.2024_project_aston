@@ -3,25 +3,25 @@ import { Button } from '../../shared/components/button/button';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { Loader } from '../../shared/components/loader/loader';
-import { updateSearchHistory } from '../../entities/User/utils/updateSearchHistory';
+import { onChangeSearchHistory } from '../../entities/User/utils/onChangeSearchHistory';
 import { useNavigate } from 'react-router';
 import { userAPI } from '../../entities/User/api/userApi';
 import { useTheme } from '../../shared/hooks/useTheme';
-import React, { type MouseEvent } from 'react';
+import React, { memo, type MouseEvent } from 'react';
 
-export const SearchHistory = () => {
+const UnmemoizedSearchHistory = () => {
     const {
         data: curUserData,
         isLoading,
         error
     } = userAPI.useGetCurrentUserQuery();
-    const [updateUser] = userAPI.useUpdateUserMutation();
+    const [onUpdateUser] = userAPI.useUpdateUserMutation();
     const { theme } = useTheme();
     const navigate = useNavigate();
     const handleDeleteQuery = (e: MouseEvent<HTMLButtonElement>): void => {
         e.stopPropagation();
         const query = (e.target as HTMLButtonElement).id;
-        updateSearchHistory(query, updateUser, curUserData, navigate);
+        onChangeSearchHistory(query, onUpdateUser, curUserData, navigate);
     };
     const containerClasses = classNames({
         'w-4/5 mx-auto rounded-md border-2': true,
@@ -62,3 +62,4 @@ export const SearchHistory = () => {
     }
     return <p>There is nothing here... :(</p>;
 };
+export const SearchHistory = memo(UnmemoizedSearchHistory);

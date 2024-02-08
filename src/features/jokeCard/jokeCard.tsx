@@ -1,17 +1,15 @@
 import { FavoriteButton } from '../../entities/Joke/components/favoriteButton';
-
 import { Loader } from '../../shared/components/loader/loader';
+import { onChangeFavorite } from '../../entities/User/utils/onChangeFavorite';
 import React from 'react';
-import { updateFavorite } from '../../entities/User/utils/updateFavorite';
 import { userAPI } from '../../entities/User/api/userApi';
-
 import { useLocation, useNavigate } from 'react-router';
 
 export const JokeCard = () => {
     const { state } = useLocation();
     const { id, value, url } = state;
     const { data: curUserData, isLoading } = userAPI.useGetCurrentUserQuery();
-    const [updateUser] = userAPI.useUpdateUserMutation();
+    const [onUpdateUser] = userAPI.useUpdateUserMutation();
     const navigate = useNavigate();
     const isFavorite =
         (curUserData && curUserData.favorites.includes(id)) || false;
@@ -38,7 +36,7 @@ export const JokeCard = () => {
                 id={id}
                 isFavorite={isFavorite}
                 onClick={() =>
-                    updateFavorite(id, updateUser, curUserData, navigate)
+                    onChangeFavorite(id, onUpdateUser, curUserData, navigate)
                 }
             />
         </div>

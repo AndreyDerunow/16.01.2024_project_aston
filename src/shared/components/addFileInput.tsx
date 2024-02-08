@@ -1,7 +1,7 @@
 import { type AddFileInputProps, type TargetImgData } from '../types/ui';
-import React, { type ChangeEvent } from 'react';
+import React, { type ChangeEvent, memo } from 'react';
 
-export const AddFileInput = ({
+const UnmemoizedAddFileInput = ({
     onChange,
     value,
     id,
@@ -43,3 +43,4 @@ export const AddFileInput = ({
         </div>
     );
 };
+export const AddFileInput = memo(UnmemoizedAddFileInput);

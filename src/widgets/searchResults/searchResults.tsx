@@ -1,12 +1,12 @@
 import classNames from 'classnames';
+import { getLocalQuery } from '../../shared/api/store/services/localStorageApi';
 import { jokesAPI } from '../../entities/Joke/api/services/jokesApi';
 import { Loader } from '../../shared/components/loader/loader';
+import { onChangeFavorite } from '../../entities/User/utils/onChangeFavorite';
 import { PartialDataJokeCard } from '../../features/jokeCard/partialDataJokeCard';
-
 import React from 'react';
 import { type Result } from '../../entities/Joke/types/jokes';
 import { UNEXPECTED_ERROR } from '../../shared/constants/constants';
-import { updateFavorite } from '../../entities/User/utils/updateFavorite';
 import { userAPI } from '../../entities/User/api/userApi';
 import { useTheme } from '../../shared/hooks/useTheme';
 import { useLocation, useNavigate } from 'react-router';
@@ -14,12 +14,13 @@ import { useLocation, useNavigate } from 'react-router';
 export const SearchResults = () => {
     const { state } = useLocation();
     const navigate = useNavigate();
-    const { data, isLoading, error } = jokesAPI.useFindJokeQuery(state?.query, {
-        skip: !state?.query
+    const query = state?.query || getLocalQuery();
+    const { data, isLoading, error } = jokesAPI.useFindJokeQuery(query, {
+        skip: !query
     });
     const { data: curUserData, isLoading: isCurUserLoading } =
         userAPI.useGetCurrentUserQuery();
-    const [updateUser] = userAPI.useUpdateUserMutation();
+    const [onUpdateUser] = userAPI.useUpdateUserMutation();
     const { theme } = useTheme();
     const containerClasses = classNames({
         'w-4/5 p-4 h-[60vh] scrollbar-none mx-auto overflow-y-scroll rounded-md border-2 flex flex-wrap items-center justify-between gap-10':
@@ -27,7 +28,7 @@ export const SearchResults = () => {
         'border-white': theme === 'dark',
         'border-black': theme === 'light'
     });
-    if (!state || !state.query) {
+    if (!query) {
         return <p>Please type search query</p>;
     }
     if (isLoading || isCurUserLoading) {
@@ -52,9 +53,9 @@ export const SearchResults = () => {
                             {...el}
                             isFavorite={isFavorite}
                             onClick={() =>
-                                updateFavorite(
+                                onChangeFavorite(
                                     el.id,
-                                    updateUser,
+                                    onUpdateUser,
                                     curUserData,
                                     navigate
                                 )

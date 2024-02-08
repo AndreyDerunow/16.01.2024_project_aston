@@ -2,7 +2,7 @@ import { type NavigateFunction } from 'react-router';
 import { updateArrAndReturnObj } from '../../../shared/utils/updateArrAndReturnObj';
 import { type NormalizedUser, type UpdateUserObj } from '../types/user';
 
-export const updateFavorite = (
+export const onChangeFavorite = (
     jokeId: string,
     updator: (arg: UpdateUserObj) => void,
     curUserData: NormalizedUser | undefined,

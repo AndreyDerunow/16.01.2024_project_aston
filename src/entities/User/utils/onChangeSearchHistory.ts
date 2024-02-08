@@ -2,7 +2,7 @@ import { type NavigateFunction } from 'react-router';
 import { updateArrAndReturnObj } from '../../../shared/utils/updateArrAndReturnObj';
 import { type NormalizedUser, type UpdateUserObj } from '../types/user';
 
-export const updateSearchHistory = (
+export const onChangeSearchHistory = (
     query: string,
     updator: (arg: UpdateUserObj) => void,
     curUserData: NormalizedUser | undefined,

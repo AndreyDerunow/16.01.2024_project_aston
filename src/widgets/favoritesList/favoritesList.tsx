@@ -2,8 +2,8 @@ import { AUTH_ERROR } from '../../shared/constants/constants';
 import classNames from 'classnames';
 import { isResult } from '../../entities/Joke/types/typeguards/jokes';
 import { Loader } from '../../shared/components/loader/loader';
+import { onChangeFavorite } from '../../entities/User/utils/onChangeFavorite';
 import { PartialDataJokeCard } from '../../features/jokeCard/partialDataJokeCard';
-import { updateFavorite } from '../../entities/User/utils/updateFavorite';
 import { useNavigate } from 'react-router';
 import { userAPI } from '../../entities/User/api/userApi';
 import { useTheme } from '../../shared/hooks/useTheme';
@@ -21,7 +21,7 @@ export const FavoritesList = () => {
         error
     } = userAPI.useGetCurrentUserQuery();
     const dispatch = useAppDispatch();
-    const [updateUser] = userAPI.useUpdateUserMutation();
+    const [onUpdateUser] = userAPI.useUpdateUserMutation();
     const { theme } = useTheme();
 
     const navigate = useNavigate();
@@ -59,9 +59,9 @@ export const FavoritesList = () => {
                                 {...el}
                                 isFavorite={isFavorite}
                                 onClick={() =>
-                                    updateFavorite(
+                                    onChangeFavorite(
                                         el.id,
-                                        updateUser,
+                                        onUpdateUser,
                                         curUserData,
                                         navigate
                                     )

@@ -21,12 +21,13 @@ export const jokesAPI = createApi({
 
 export const getJokeById = async (arr: string[]) => {
     const response = await Promise.all(
-        arr.map(async el =>
-            fetch(BASE_CHUCK_API_URL + el, {
-                headers: new Headers({
-                    'content-type': 'application/json'
+        arr.map(
+            async el =>
+                await fetch(BASE_CHUCK_API_URL + el, {
+                    headers: new Headers({
+                        'content-type': 'application/json'
+                    })
                 })
-            })
         )
     );
     const responseParsed = await Promise.all(

@@ -16,7 +16,7 @@ import {
     isAuthError,
     isAuthResponse
 } from '../../entities/auth/types/typeguards/auth';
-import React, { type ChangeEvent, useState } from 'react';
+import React, { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 
 export const RegisterForm = () => {
     const [data, setData] = useState<RegisterData>({
@@ -28,23 +28,26 @@ export const RegisterForm = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [errors, setErrors] = useState<Errors>({});
     const [image, setImage] = useState<File>();
-    const [authUser] = authAPI.useSignUpMutation();
-    const [createUser] = userAPI.useCreateUserMutation();
+    const [onAuth] = authAPI.useSignUpMutation();
+    const [onCreateUser] = userAPI.useCreateUserMutation();
     const { handleNavigate } = useNavigateAfterAuth();
     const validate = useValidate(data, setErrors);
-    const handleChange = ({
-        target
-    }: ChangeEvent<HTMLInputElement> | { target: TargetImgData }): void => {
-        if (target.name === 'image' && isTargetImgData(target)) {
-            setImage(() => target.value);
-            setData(prev => ({
-                ...prev,
-                [target.name]: (target as TargetImgData).img
-            }));
-            return;
-        }
-        setData(prev => ({ ...prev, [target.name]: target.value }));
-    };
+    const handleChange = useCallback(
+        ({
+            target
+        }: ChangeEvent<HTMLInputElement> | { target: TargetImgData }): void => {
+            if (target.name === 'image' && isTargetImgData(target)) {
+                setImage(() => target.value);
+                setData(prev => ({
+                    ...prev,
+                    [target.name]: (target as TargetImgData).img
+                }));
+                return;
+            }
+            setData(prev => ({ ...prev, [target.name]: target.value }));
+        },
+        []
+    );
     const isValid = Object.keys(errors).length === 0;
 
     const handleSubmit = async (): Promise<void> => {
@@ -54,7 +57,7 @@ export const RegisterForm = () => {
         }
         setIsLoading(() => true);
 
-        const res = await authUser({
+        const res = await onAuth({
             email: data.email,
             password: data.password,
             returnSecureToken: true
@@ -65,7 +68,7 @@ export const RegisterForm = () => {
                 email: data.email,
                 sex: data.sex,
                 image,
-                createUser,
+                createUser: onCreateUser,
                 handleNavigate
             });
         } else if (isAuthError(res)) {
@@ -78,25 +81,25 @@ export const RegisterForm = () => {
             <form>
                 <TextInput
                     onChange={handleChange}
-                    value={data.email}
+                    value={useMemo(() => data.email, [data.email])}
                     placeholder='type ur email'
                     name='email'
                     id='email'
                     label='Email:'
-                    error={errors.email}
+                    error={useMemo(() => errors.email, [errors.email])}
                 />
                 <TextInput
                     onChange={handleChange}
-                    value={data.password}
+                    value={useMemo(() => data.password, [data.password])}
                     placeholder='type ur pass'
                     name='password'
                     id='password'
                     label='Password:'
-                    error={errors.password}
+                    error={useMemo(() => errors.password, [errors.password])}
                 />
                 <RadioInput
                     onChange={handleChange}
-                    value={data.sex}
+                    value={useMemo(() => data.sex, [data.sex])}
                     options={[
                         { name: 'male', value: 'male' },
                         { name: 'female', value: 'female' }
@@ -107,7 +110,7 @@ export const RegisterForm = () => {
                 />
                 <AddFileInput
                     onChange={handleChange}
-                    value={data.image}
+                    value={useMemo(() => data.image, [data.image])}
                     name='image'
                     id='image'
                     label='Image:'

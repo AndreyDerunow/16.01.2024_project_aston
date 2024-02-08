@@ -11,21 +11,22 @@ import {
     isAuthError,
     isAuthResponse
 } from '../../entities/auth/types/typeguards/auth';
-import React, { type ChangeEvent, useState } from 'react';
+import React, { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 
 export const LoginForm = () => {
     const [data, setData] = useState<LoginData>({ email: '', password: '' });
     const [errors, setErrors] = useState<Errors>({});
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const [authUser] = authAPI.useSignInMutation();
-    const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-        setData(prev => ({ ...prev, [target.name]: target.value }));
-    };
+    const [onAuth] = authAPI.useSignInMutation();
     const validate = useValidate(data, setErrors);
     const { handleNavigate } = useNavigateAfterAuth();
     const isValid = Object.keys(errors).length === 0;
-
+    const handleChange = useCallback(
+        ({ target }: ChangeEvent<HTMLInputElement>) => {
+            setData(prev => ({ ...prev, [target.name]: target.value }));
+        },
+        []
+    );
     const handleSubmit = async () => {
         validate();
         if (!isValid) {
@@ -33,7 +34,7 @@ export const LoginForm = () => {
         }
         setIsLoading(() => true);
 
-        const res = await authUser({
+        const res = await onAuth({
             ...data,
             returnSecureToken: true
         });
@@ -51,21 +52,21 @@ export const LoginForm = () => {
             <form>
                 <TextInput
                     onChange={handleChange}
-                    value={data.email}
+                    value={useMemo(() => data.email, [data.email])}
                     placeholder='type ur email'
                     name='email'
                     id='email'
                     label='Email:'
-                    error={errors.email}
+                    error={useMemo(() => errors.email, [errors.email])}
                 />
                 <TextInput
                     onChange={handleChange}
-                    value={data.password}
+                    value={useMemo(() => data.password, [data.password])}
                     placeholder='type ur pass'
                     name='password'
                     id='password'
                     label='Password:'
-                    error={errors.password}
+                    error={useMemo(() => errors.password, [errors.password])}
                 />
             </form>
             {isLoading && <Loader />}
