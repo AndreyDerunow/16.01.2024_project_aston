@@ -39,22 +39,28 @@ const UnmemoizedSearchHistory = () => {
             <div className={containerClasses}>
                 {curUserData?.searchHistory.map((el: string) => {
                     return (
-                        <Link
-                            title='repeat search'
-                            to={'/searchResults'}
-                            state={{ query: el }}
-                            className='flex items-center justify-between p-2 m-1 border-b-2 border-gray-100 text-ellipsis rounded-md whitespace-nowrap overflow-hidden cursor-pointer hover:whitespace-normal hover:bg-orange-400'
+                        <div
                             key={el}
+                            className='flex items-center justify-between p-2 m-1 border-b-2 border-gray-100 text-ellipsis rounded-md whitespace-nowrap overflow-hidden cursor-pointer hover:whitespace-normal hover:bg-orange-400'
                         >
-                            <div className='w-full'>{el}</div>
+                            <Link
+                                title='repeat search'
+                                to={`/searchResults?query=${el}`}
+                                key={el}
+                            >
+                                <div className='w-full'>{el}</div>
+                            </Link>
                             <Button
                                 id={el}
                                 title='delete query'
                                 text='Delete'
-                                cb={e => handleDeleteQuery(e)}
+                                cb={e => {
+                                    e.stopPropagation();
+                                    handleDeleteQuery(e);
+                                }}
                                 disabled={false}
                             />
-                        </Link>
+                        </div>
                     );
                 })}
             </div>

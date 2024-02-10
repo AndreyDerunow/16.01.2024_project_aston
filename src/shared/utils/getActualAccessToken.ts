@@ -22,7 +22,6 @@ export const getActualAccessToken = async (): Promise<string> => {
     if (!expiresIn || !token) {
         return AUTH_ERROR;
     }
-
     if (+expiresIn < Date.now()) {
         const refreshToken = getRefreshToken();
         if (!refreshToken) {

@@ -81,36 +81,39 @@ export const RegisterForm = () => {
             <form>
                 <TextInput
                     onChange={handleChange}
-                    value={useMemo(() => data.email, [data.email])}
+                    value={data.email}
                     placeholder='type ur email'
                     name='email'
                     id='email'
                     label='Email:'
-                    error={useMemo(() => errors.email, [errors.email])}
+                    error={errors.email}
                 />
                 <TextInput
                     onChange={handleChange}
-                    value={useMemo(() => data.password, [data.password])}
+                    value={data.password}
                     placeholder='type ur pass'
                     name='password'
                     id='password'
                     label='Password:'
-                    error={useMemo(() => errors.password, [errors.password])}
+                    error={errors.password}
                 />
                 <RadioInput
                     onChange={handleChange}
-                    value={useMemo(() => data.sex, [data.sex])}
-                    options={[
-                        { name: 'male', value: 'male' },
-                        { name: 'female', value: 'female' }
-                    ]}
+                    value={data.sex}
+                    options={useMemo(
+                        () => [
+                            { name: 'male', value: 'male' },
+                            { name: 'female', value: 'female' }
+                        ],
+                        []
+                    )}
                     name='sex'
                     id='sex'
                     label='Sex:'
                 />
                 <AddFileInput
                     onChange={handleChange}
-                    value={useMemo(() => data.image, [data.image])}
+                    value={data.image}
                     name='image'
                     id='image'
                     label='Image:'

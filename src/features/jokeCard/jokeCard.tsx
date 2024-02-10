@@ -1,4 +1,5 @@
 import { FavoriteButton } from '../../entities/Joke/components/favoriteButton';
+import { jokesAPI } from '../../entities/Joke/api/services/jokesApi';
 import { Loader } from '../../shared/components/loader/loader';
 import { onChangeFavorite } from '../../entities/User/utils/onChangeFavorite';
 import React from 'react';
@@ -6,17 +7,27 @@ import { userAPI } from '../../entities/User/api/userApi';
 import { useLocation, useNavigate } from 'react-router';
 
 export const JokeCard = () => {
-    const { state } = useLocation();
-    const { id, value, url } = state;
+    const { state, pathname } = useLocation();
+    const existsInLocationState = state !== null && state.id;
+    const jokeId = existsInLocationState ? state.id : pathname.slice(6);
+    const {
+        data,
+        error,
+        isLoading: isJokeLoading
+    } = jokesAPI.useGetJokeByIdQuery(jokeId, { skip: existsInLocationState });
     const { data: curUserData, isLoading } = userAPI.useGetCurrentUserQuery();
     const [onUpdateUser] = userAPI.useUpdateUserMutation();
     const navigate = useNavigate();
-    const isFavorite =
-        (curUserData && curUserData.favorites.includes(id)) || false;
-
-    if (isLoading) {
+    const joke = existsInLocationState ? state : data;
+    if (!joke || isLoading || isJokeLoading) {
         return <Loader />;
     }
+    if (error) {
+        return <div>nothing found..:(</div>;
+    }
+    const { id, value, url } = joke;
+    const isFavorite =
+        (curUserData && curUserData.favorites.includes(jokeId)) || false;
     return (
         <div className='w-2/5 mx-auto'>
             <img

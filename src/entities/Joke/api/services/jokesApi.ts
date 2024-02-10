@@ -10,8 +10,13 @@ export const jokesAPI = createApi({
     baseQuery: fetchBaseQuery({ baseUrl }),
     reducerPath: 'jokesAPI',
     endpoints: builder => ({
-        getJokes: builder.query<Joke, void>({
+        getRandomJoke: builder.query<Joke, void>({
             query: () => ({ url: 'random' })
+        }),
+        getJokeById: builder.query<Joke, string>({
+            query: id => ({
+                url: id
+            })
         }),
         findJoke: builder.query<QueryAnswer, string>({
             query: arg => ({ url: 'search', params: { query: arg } })

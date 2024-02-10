@@ -4,7 +4,7 @@ import React from 'react';
 import { UNEXPECTED_ERROR } from '../../shared/constants/constants';
 
 export const Main = () => {
-    const { data: joke, isLoading, error } = jokesAPI.useGetJokesQuery();
+    const { data: joke, isLoading, error } = jokesAPI.useGetRandomJokeQuery();
     if (error) {
         return <div>{UNEXPECTED_ERROR}</div>;
     }

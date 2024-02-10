@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { getLocalQuery } from '../../shared/api/store/services/localStorageApi';
 import { jokesAPI } from '../../entities/Joke/api/services/jokesApi';
 import { Loader } from '../../shared/components/loader/loader';
 import { onChangeFavorite } from '../../entities/User/utils/onChangeFavorite';
@@ -7,14 +6,15 @@ import { PartialDataJokeCard } from '../../features/jokeCard/partialDataJokeCard
 import React from 'react';
 import { type Result } from '../../entities/Joke/types/jokes';
 import { UNEXPECTED_ERROR } from '../../shared/constants/constants';
+import { useNavigate } from 'react-router';
 import { userAPI } from '../../entities/User/api/userApi';
+import { useSearchParams } from 'react-router-dom';
 import { useTheme } from '../../shared/hooks/useTheme';
-import { useLocation, useNavigate } from 'react-router';
 
 export const SearchResults = () => {
-    const { state } = useLocation();
+    const [params] = useSearchParams();
+    const query = params.get('query') || '';
     const navigate = useNavigate();
-    const query = state?.query || getLocalQuery();
     const { data, isLoading, error } = jokesAPI.useFindJokeQuery(query, {
         skip: !query
     });

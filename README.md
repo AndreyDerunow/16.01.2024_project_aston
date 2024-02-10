@@ -110,9 +110,7 @@ npm run dev
 - [ ] ~~Добавить **тесты** через jest, react-testing-library или Playwright~~
       в планах
 
-- [x] Связь UI и бизнес-логики построена не через команды, а через **события**
-     [onResetUser](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/features/auth/components/logOut.tsx),
-     [onUpdateUser](https://github.com/AndreyDerunow/16.01.2024_project_aston/blob/main/src/widgets/favoritesList/favoritesList.tsx).     
+- [ ] ~~Связь UI и бизнес-логики построена не через команды, а через **события**~~
 - [ ] ~~**Project Console API**~~
 
 ## **Дополнительно**

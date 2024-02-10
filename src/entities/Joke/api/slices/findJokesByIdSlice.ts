@@ -46,6 +46,9 @@ export const findJokesByIdFunc =
     (ids: string[]) => async (dispatch: AppDispatch) => {
         dispatch(JokesByIdRequested());
         try {
+            if (ids.length === 0) {
+                dispatch(JokesByIdRecieved([]));
+            }
             const data = await getJokeById(ids);
             dispatch(JokesByIdRecieved(data));
         } catch (error) {

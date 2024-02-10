@@ -36,7 +36,7 @@ export const Search = () => {
             navigate,
             false
         );
-        navigate('searchResults', { state: { query } });
+        navigate(`searchResults?query=${query}`, { state: { query } });
     }, [query, curUserData, onUpdateUser, navigate]);
 
     const handleSearchByEnter = useCallback(

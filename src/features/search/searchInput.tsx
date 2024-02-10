@@ -1,9 +1,6 @@
 import { TextInput } from '../../shared/components/textInput';
-import { useLocation } from 'react-router';
-import {
-    getLocalQuery,
-    setLocalQuery
-} from '../../shared/api/store/services/localStorageApi';
+import { useSearchParams } from 'react-router-dom';
+
 import React, {
     type ChangeEvent,
     memo,
@@ -22,9 +19,8 @@ export const UnmemoizedSearchInput = ({
     searchInputRef: RefObject<HTMLInputElement>,
     searchResultsRef: RefObject<HTMLDivElement>
 }) => {
-    const location = useLocation();
-    const { state } = location;
-    const searchQuery = state?.query || getLocalQuery();
+    const [params] = useSearchParams();
+    const searchQuery = params.get('query') || '';
     useEffect(() => {
         if (searchQuery) {
             setQuery(() => searchQuery);
@@ -32,7 +28,6 @@ export const UnmemoizedSearchInput = ({
     }, [searchQuery, setQuery]);
     const handleChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
         setQuery(() => target.value);
-        setLocalQuery(target.value);
     };
     return (
         <TextInput

@@ -1,7 +1,7 @@
 import { BASE_FIREBASE_URL } from '../../../shared/constants/constants';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { firebaseUserQueryWithReauth } from '../../auth/api/baseQueryWithAuth';
-import { localStorageAPI } from '../../../shared/api/store/services/localStorageApi';
+import { getUserId } from '../../../shared/api/store/services/localStorageApi';
 import { makeArrayFromArrayLikeObj } from '../../../shared/utils/makeArrayFromArrayLikeObj';
 import { type NormalizedUser, type User } from '../types/user';
 
@@ -11,7 +11,7 @@ export const userAPI = createApi({
     tagTypes: ['User'],
     endpoints: builder => ({
         getCurrentUser: builder.query<NormalizedUser, void>({
-            query: () => localStorageAPI.getUserId() + '.json',
+            query: () => getUserId() + '.json',
             providesTags: ['User'],
             transformResponse: (response: User): NormalizedUser => {
                 const favorites = makeArrayFromArrayLikeObj(

@@ -26,7 +26,7 @@ export const FavoritesList = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (curUserData && curUserData.favorites.length > 0) {
+        if (curUserData) {
             dispatch(findJokesByIdFunc(curUserData.favorites));
         }
     }, [curUserData, dispatch, curUserData?.favorites]);
